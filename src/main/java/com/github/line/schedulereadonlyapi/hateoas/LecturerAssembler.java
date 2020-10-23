@@ -1,0 +1,19 @@
+package com.github.line.schedulereadonlyapi.hateoas;
+
+import com.github.line.schedulereadonlyapi.controller.LecturerController;
+import com.github.line.schedulereadonlyapi.domain.Lecturer;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.server.RepresentationModelAssembler;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+
+public class LecturerAssembler implements RepresentationModelAssembler<Lecturer, EntityModel<Lecturer>> {
+    @Override
+    public EntityModel<Lecturer> toModel(Lecturer entity) {
+        return EntityModel.of(entity,
+                linkTo(methodOn(LecturerController.class).one(entity.getId())).withSelfRel(),
+                linkTo(methodOn(LecturerController.class).all()).withRel("lecturers")
+        );
+    }
+}
