@@ -1,7 +1,6 @@
 package com.github.line.schedulereadonlyapi.domain;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "lecturers", uniqueConstraints = @UniqueConstraint(columnNames = {"id", "name", "surname", "shortname"}))
@@ -13,15 +12,12 @@ public class Lecturer {
     private Long id;
 
     @Column(name = "name")
-    @NotNull
     private String name;
 
     @Column(name = "surname")
-    @NotNull
     private String surname;
 
     @Column(name = "shortname")
-    @NotNull
     private String shortName;
 
     @Column(name = "email")
@@ -30,7 +26,7 @@ public class Lecturer {
     public Lecturer() {
     }
 
-    public Lecturer(Long id, @NotNull String name, @NotNull String surname, @NotNull String shortName, String email) {
+    public Lecturer(Long id, String name, String surname, String shortName, String email) {
         this.id = id;
         this.name = name;
         this.surname = surname;

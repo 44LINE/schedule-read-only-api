@@ -1,6 +1,6 @@
 package com.github.line.schedulereadonlyapi.domain;
 
-import com.github.line.sheduleupdateapi.enums.DayTimePeriods;
+import com.github.line.schedulereadonlyapi.enums.DayTimePeriods;
 
 import javax.persistence.Embeddable;
 import java.time.LocalTime;

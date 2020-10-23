@@ -1,18 +1,14 @@
 package com.github.line.schedulereadonlyapi.domain;
 
-import com.github.line.sheduleupdateapi.enums.ClassType;
-import com.github.line.sheduleupdateapi.service.EntityType;
+import com.github.line.schedulereadonlyapi.enums.ClassType;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
-import org.hibernate.annotations.Type;
-import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "class_details", uniqueConstraints = @UniqueConstraint(columnNames = {"id"}))
-public class ClassDetails implements EntityType {
+public class ClassDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,7 +27,6 @@ public class ClassDetails implements EntityType {
 
     @Column(name = "type")
     @Enumerated(EnumType.STRING)
-    @NotNull
     private ClassType type;
 
     @Embedded

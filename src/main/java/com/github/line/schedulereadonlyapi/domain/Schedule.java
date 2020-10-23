@@ -1,18 +1,15 @@
 package com.github.line.schedulereadonlyapi.domain;
 
-import com.github.line.sheduleupdateapi.service.EntityType;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "schedules", uniqueConstraints = @UniqueConstraint(columnNames = {"id"}))
-public class Schedule implements EntityType {
+public class Schedule {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,17 +23,15 @@ public class Schedule implements EntityType {
 
     @OneToMany(mappedBy = "schedule", fetch = FetchType.EAGER)
     @Fetch(FetchMode.SELECT)
-    @NotNull
     private List<GroupedDailySchedule> dailySchedule;
 
     @Column(name = "is_latest")
-    @NotNull
     private boolean isLatest;
 
     public Schedule() {
     }
 
-    public Schedule(long id, ScheduleVersion scheduleVersion, @NotNull List<GroupedDailySchedule> dailySchedule, @NotNull boolean isLatest) {
+    public Schedule(long id, ScheduleVersion scheduleVersion, List<GroupedDailySchedule> dailySchedule, boolean isLatest) {
         this.id = id;
         this.scheduleVersion = scheduleVersion;
         this.dailySchedule = dailySchedule;
