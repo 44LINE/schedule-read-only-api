@@ -22,12 +22,12 @@ public class ClassDetailsController {
 
     @GetMapping(value = "/schedule/{scheduleId}/grouped-daily-schedule/{groupedDailyScheduleId}/class-details")
     public CollectionModel<EntityModel<ClassDetails>> all(@PathVariable Long scheduleId, @PathVariable Long groupedDailyScheduleId) {
-        return classDetailsService.allByGroupedDailySchedule(scheduleId, groupedDailyScheduleId);
+        return classDetailsService.all(scheduleId, groupedDailyScheduleId);
     }
 
     @GetMapping(value = "/schedule/{scheduleId}/grouped-daily-schedule/{groupedDailyScheduleId}/class-details/{classDetailsId}")
     public EntityModel<ClassDetails> one(@PathVariable Long scheduleId, @PathVariable Long groupedDailyScheduleId, @PathVariable Long classDetailsId) {
-        return classDetailsService.oneByGroupedDailySchedule(scheduleId, groupedDailyScheduleId, classDetailsId);
+        return classDetailsService.one(scheduleId, groupedDailyScheduleId, classDetailsId);
     }
 
 }

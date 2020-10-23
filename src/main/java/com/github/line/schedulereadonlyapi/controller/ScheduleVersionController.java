@@ -5,6 +5,7 @@ import com.github.line.schedulereadonlyapi.service.ScheduleVersionService;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -19,9 +20,14 @@ public class ScheduleVersionController {
         this.scheduleVersionService = scheduleVersionService;
     }
 
-    @GetMapping(value = "/schedule-version")
+    @GetMapping(value = "/schedule-versions")
     public CollectionModel<EntityModel<ScheduleVersion>> all() {
         return scheduleVersionService.all();
+    }
+
+    @GetMapping(value = "/schedule-versions/{id}")
+    public EntityModel<ScheduleVersion> one(@PathVariable Long scheduleVersionId) {
+        return scheduleVersionService.one(scheduleVersionId);
     }
 
     @GetMapping(value = "/schedule-version/latest")

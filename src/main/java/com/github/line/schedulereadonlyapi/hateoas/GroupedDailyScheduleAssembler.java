@@ -1,9 +1,16 @@
 package com.github.line.schedulereadonlyapi.hateoas;
 
+import com.github.line.schedulereadonlyapi.controller.ClassDetailsController;
+import com.github.line.schedulereadonlyapi.controller.GroupedDailyScheduleController;
 import com.github.line.schedulereadonlyapi.controller.ScheduleController;
+import com.github.line.schedulereadonlyapi.domain.ClassDetails;
 import com.github.line.schedulereadonlyapi.domain.GroupedDailySchedule;
+import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.RepresentationModelAssembler;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
@@ -12,8 +19,23 @@ public class GroupedDailyScheduleAssembler implements RepresentationModelAssembl
     @Override
     public EntityModel<GroupedDailySchedule> toModel(GroupedDailySchedule entity) {
         return EntityModel.of(entity,
-                linkTo(methodOn(ScheduleController.class).one(entity.getId())).withSelfRel(),
-                linkTo(methodOn(ScheduleController.class).all()).withRel("grouped-daily-schedules")
-        );
+                linkTo(methodOn(GroupedDailyScheduleController.class).one(entity.getSchedule().getId(), entity.getId())).withSelfRel(),
+                linkTo(methodOn(GroupedDailyScheduleController.class).all(entity.getId())).withRel("grouped-daily-schedules"));
+    }
+
+    @Override
+    public CollectionModel<EntityModel<GroupedDailySchedule>> toCollectionModel(Iterable<? extends GroupedDailySchedule> entities) {
+        List<EntityModel<GroupedDailySchedule>> listOfEntityModel = new ArrayList<>();
+        GroupedDailySchedule firstEntity = entities.iterator().next();
+
+        for (GroupedDailySchedule entity: entities) {
+            listOfEntityModel.add(EntityModel.of(entity,
+                    linkTo(methodOn(GroupedDailyScheduleController.class).one(entity.getSchedule().getId(),
+                            entity.getId())).withSelfRel()));
+        }
+
+        return CollectionModel.of(listOfEntityModel,
+                linkTo(methodOn(GroupedDailyScheduleController.class).all(firstEntity.getSchedule().getId())).withRel("grouped-daily-schedules"),
+                linkTo(methodOn(ScheduleController.class).one(firstEntity.getSchedule().getId())).withRel("schedule"));
     }
 }
