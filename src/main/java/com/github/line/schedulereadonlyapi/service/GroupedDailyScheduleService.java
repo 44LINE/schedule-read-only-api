@@ -20,10 +20,10 @@ public class GroupedDailyScheduleService {
     }
 
     public CollectionModel<EntityModel<GroupedDailySchedule>> all(Long scheduleId) {
-        return groupedDailyScheduleAssembler.toCollectionModel(null);
+        return groupedDailyScheduleAssembler.toCollectionModel(groupedDailyScheduleRepository.getAllBySchedule_Id(scheduleId));
     }
 
     public EntityModel<GroupedDailySchedule> one(Long scheduleId, Long groupedDailyScheduleId) {
-        return groupedDailyScheduleAssembler.toModel(null);
+        return groupedDailyScheduleAssembler.toModel(groupedDailyScheduleRepository.getBySchedule_IdAndId(scheduleId, groupedDailyScheduleId));
     }
 }

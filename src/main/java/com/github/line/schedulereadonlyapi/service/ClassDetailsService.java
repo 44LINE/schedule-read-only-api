@@ -20,11 +20,13 @@ public class ClassDetailsService {
     }
 
     public EntityModel<ClassDetails> one(Long scheduleId, Long groupedDailyScheduleId, Long classDetailsId) {
-        return classDetailsAssembler.toModel(null);
+        return classDetailsAssembler.toModel(
+                classDetailsRepository.getByGroupedDailySchedule_Schedule_IdAndGroupedDailySchedule_IdAndId(scheduleId, groupedDailyScheduleId, classDetailsId));
     }
 
     public CollectionModel<EntityModel<ClassDetails>> all(Long scheduleId, Long groupedDailyScheduleId) {
-        return classDetailsAssembler.toCollectionModel(null);
+        return classDetailsAssembler.toCollectionModel(
+                classDetailsRepository.getAllByGroupedDailySchedule_Schedule_IdAndGroupedDailySchedule_Id(scheduleId, groupedDailyScheduleId));
     }
 }
 

@@ -26,4 +26,9 @@ public class ScheduleService {
     public EntityModel<Schedule> one(Long scheduleId) {
         return scheduleAssembler.toModel(scheduleRepository.getOne(scheduleId));
     }
+
+    public EntityModel<Schedule> latest() {
+        return scheduleAssembler.toModel(scheduleRepository.getLatest());
+    }
+
 }

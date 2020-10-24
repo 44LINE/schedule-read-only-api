@@ -24,7 +24,7 @@ public class ScheduleVersionService {
     }
 
     public EntityModel<ScheduleVersion> latest() {
-        return one(scheduleVersionRepository.count());
+        return scheduleVersionAssembler.toModel(scheduleVersionRepository.getLatest());
     }
 
     public EntityModel<ScheduleVersion> one(Long scheduleVersionId) {

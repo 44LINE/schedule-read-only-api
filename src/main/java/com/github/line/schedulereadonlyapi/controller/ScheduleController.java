@@ -18,12 +18,12 @@ public class ScheduleController {
         this.scheduleService = scheduleService;
     }
 
-    @GetMapping(value = "/schedule")
+    @GetMapping(value = "/schedules")
     public CollectionModel<EntityModel<Schedule>> all() {
         return scheduleService.all();
     }
 
-    @GetMapping(value = "/schedule/{id}")
+    @GetMapping(value = "/schedules/{id}")
     public EntityModel<Schedule> one(@PathVariable Long id) {
         return scheduleService.one(id);
     }
