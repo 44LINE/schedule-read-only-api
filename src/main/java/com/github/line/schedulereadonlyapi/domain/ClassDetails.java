@@ -1,44 +1,39 @@
 package com.github.line.schedulereadonlyapi.domain;
 
-import com.github.line.sheduleupdateapi.enums.ClassType;
-import com.github.line.sheduleupdateapi.service.EntityType;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
-import org.hibernate.annotations.Type;
-import org.springframework.lang.Nullable;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.github.line.schedulereadonlyapi.enums.ClassType;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "class_details", uniqueConstraints = @UniqueConstraint(columnNames = {"id"}))
-public class ClassDetails implements EntityType {
+public class ClassDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
-    @ManyToOne
-    @Fetch(FetchMode.JOIN)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "class_object_id", referencedColumnName = "id", nullable = false)
+    @JsonIgnore
     private ClassObject classObject;
 
-    @ManyToOne
-    @Fetch(FetchMode.JOIN)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "lecturer_id", referencedColumnName = "id", nullable = false)
+    @JsonIgnore
     private Lecturer lecturer;
 
     @Column(name = "type")
     @Enumerated(EnumType.STRING)
-    @NotNull
     private ClassType type;
 
     @Embedded
     private ClassPeriod classPeriod;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "grouped_daily_schedule_id", referencedColumnName = "id", nullable = false)
+    @JsonIgnore
     private GroupedDailySchedule groupedDailySchedule;
 
     public ClassDetails() {}

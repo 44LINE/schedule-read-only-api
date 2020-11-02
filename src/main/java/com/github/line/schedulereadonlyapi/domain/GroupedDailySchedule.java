@@ -1,19 +1,17 @@
 package com.github.line.schedulereadonlyapi.domain;
 
-import com.github.line.sheduleupdateapi.service.EntityType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "grouped_daily_schedules", uniqueConstraints = @UniqueConstraint(columnNames = {"id"}))
-public class GroupedDailySchedule implements EntityType {
+public class GroupedDailySchedule {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,25 +19,24 @@ public class GroupedDailySchedule implements EntityType {
     private Long id;
 
     @Column(name = "group_id")
-    @NotNull
     private long groupId;
 
-    @NotNull
     @Column(name = "date")
     private LocalDate date;
 
-    @OneToMany(mappedBy = "groupedDailySchedule", fetch = FetchType.EAGER)
-    @Fetch(FetchMode.SELECT )
+    @OneToMany(mappedBy = "groupedDailySchedule", fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<ClassDetails> classDetails;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "schedule_id", referencedColumnName = "id", nullable = false)
+    @JsonIgnore
     private Schedule schedule;
 
     public GroupedDailySchedule() {
     }
 
-    public GroupedDailySchedule(Long id, @NotNull long groupId, @NotNull LocalDate date, List<ClassDetails> classDetails, Schedule schedule) {
+    public GroupedDailySchedule(Long id, long groupId, LocalDate date, List<ClassDetails> classDetails, Schedule schedule) {
         this.id = id;
         this.groupId = groupId;
         this.date = date;

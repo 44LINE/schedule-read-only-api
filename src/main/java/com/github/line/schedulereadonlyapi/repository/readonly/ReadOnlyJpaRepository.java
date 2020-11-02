@@ -1,9 +1,11 @@
 package com.github.line.schedulereadonlyapi.repository.readonly;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.NoRepositoryBean;
 
 import java.util.List;
 
+@NoRepositoryBean
 public interface ReadOnlyJpaRepository<T> extends JpaRepository<T, Long> {
 
     @Override
