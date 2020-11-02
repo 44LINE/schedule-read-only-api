@@ -1,5 +1,7 @@
 package com.github.line.schedulereadonlyapi.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
@@ -25,7 +27,7 @@ public class ScheduleVersion {
     private LocalDateTime additionDate;
 
     @OneToOne(mappedBy = "scheduleVersion", fetch = FetchType.LAZY)
-    @Fetch(FetchMode.SELECT)
+    @JsonIgnore
     private Schedule schedule;
 
     public ScheduleVersion() {

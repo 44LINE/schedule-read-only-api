@@ -24,6 +24,6 @@ public class ClassObjectService {
     }
 
     public EntityModel<ClassObject> one(Long classObjectId) {
-        return classObjectAssembler.toModel(classObjectRepository.getOne(classObjectId));
+        return classObjectAssembler.toModel(classObjectRepository.findById(classObjectId).get());
     }
 }

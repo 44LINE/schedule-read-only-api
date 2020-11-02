@@ -28,6 +28,6 @@ public class ScheduleVersionService {
     }
 
     public EntityModel<ScheduleVersion> one(Long scheduleVersionId) {
-        return scheduleVersionAssembler.toModel(scheduleVersionRepository.getOne(scheduleVersionId));
+        return scheduleVersionAssembler.toModel(scheduleVersionRepository.findById(scheduleVersionId).get());
     }
 }

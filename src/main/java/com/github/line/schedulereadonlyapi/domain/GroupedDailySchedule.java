@@ -1,5 +1,6 @@
 package com.github.line.schedulereadonlyapi.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
@@ -23,12 +24,13 @@ public class GroupedDailySchedule {
     @Column(name = "date")
     private LocalDate date;
 
-    @OneToMany(mappedBy = "groupedDailySchedule", fetch = FetchType.EAGER)
-    @Fetch(FetchMode.SELECT )
+    @OneToMany(mappedBy = "groupedDailySchedule", fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<ClassDetails> classDetails;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "schedule_id", referencedColumnName = "id", nullable = false)
+    @JsonIgnore
     private Schedule schedule;
 
     public GroupedDailySchedule() {

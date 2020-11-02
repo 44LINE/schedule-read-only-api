@@ -26,11 +26,11 @@ public class ScheduleVersionController {
     }
 
     @GetMapping(value = "/schedule-versions/{id}")
-    public EntityModel<ScheduleVersion> one(@PathVariable Long scheduleVersionId) {
-        return scheduleVersionService.one(scheduleVersionId);
+    public EntityModel<ScheduleVersion> one(@PathVariable Long id) {
+        return scheduleVersionService.one(id);
     }
 
-    @GetMapping(value = "/schedule-version/latest")
+    @GetMapping(value = "/schedule-versions/latest")
     public EntityModel<ScheduleVersion> latest() {
         return scheduleVersionService.latest();
     }

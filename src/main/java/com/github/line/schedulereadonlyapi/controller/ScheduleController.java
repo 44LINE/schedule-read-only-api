@@ -6,7 +6,9 @@ import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
 
+@RestController
 public class ScheduleController {
     private final ScheduleService scheduleService;
 
@@ -26,5 +28,10 @@ public class ScheduleController {
     @GetMapping(value = "/schedules/{id}")
     public EntityModel<Schedule> one(@PathVariable Long id) {
         return scheduleService.one(id);
+    }
+
+    @GetMapping(value = "/schedules/latest")
+    public EntityModel<Schedule> latest() {
+        return scheduleService.latest();
     }
 }

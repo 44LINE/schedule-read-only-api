@@ -2,8 +2,6 @@ package com.github.line.schedulereadonlyapi.hateoas;
 
 import com.github.line.schedulereadonlyapi.controller.ClassDetailsController;
 import com.github.line.schedulereadonlyapi.controller.GroupedDailyScheduleController;
-import com.github.line.schedulereadonlyapi.controller.ScheduleController;
-import com.github.line.schedulereadonlyapi.domain.ClassDetails;
 import com.github.line.schedulereadonlyapi.domain.GroupedDailySchedule;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
@@ -20,7 +18,7 @@ public class GroupedDailyScheduleAssembler implements RepresentationModelAssembl
     public EntityModel<GroupedDailySchedule> toModel(GroupedDailySchedule entity) {
         return EntityModel.of(entity,
                 linkTo(methodOn(GroupedDailyScheduleController.class).one(entity.getSchedule().getId(), entity.getId())).withSelfRel(),
-                linkTo(methodOn(GroupedDailyScheduleController.class).all(entity.getId())).withRel("grouped-daily-schedules"));
+                linkTo(methodOn(ClassDetailsController.class).all(entity.getSchedule().getId(), entity.getId())).withRel("classDetailsList"));
     }
 
     @Override
@@ -29,13 +27,10 @@ public class GroupedDailyScheduleAssembler implements RepresentationModelAssembl
         GroupedDailySchedule firstEntity = entities.iterator().next();
 
         for (GroupedDailySchedule entity: entities) {
-            listOfEntityModel.add(EntityModel.of(entity,
-                    linkTo(methodOn(GroupedDailyScheduleController.class).one(entity.getSchedule().getId(),
-                            entity.getId())).withSelfRel()));
+            listOfEntityModel.add(toModel(entity));
         }
 
         return CollectionModel.of(listOfEntityModel,
-                linkTo(methodOn(GroupedDailyScheduleController.class).all(firstEntity.getSchedule().getId())).withRel("grouped-daily-schedules"),
-                linkTo(methodOn(ScheduleController.class).one(firstEntity.getSchedule().getId())).withRel("schedule"));
+                linkTo(methodOn(GroupedDailyScheduleController.class).all(firstEntity.getSchedule().getId())).withSelfRel());
     }
 }

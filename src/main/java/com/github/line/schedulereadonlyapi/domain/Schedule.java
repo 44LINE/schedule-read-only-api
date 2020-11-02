@@ -1,7 +1,6 @@
 package com.github.line.schedulereadonlyapi.domain;
 
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.Collections;
@@ -14,15 +13,15 @@ public class Schedule {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private long id;
+    private Long id;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @Fetch(FetchMode.JOIN)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "version_id", referencedColumnName = "id", nullable = false)
+    @JsonIgnore
     private ScheduleVersion scheduleVersion;
 
-    @OneToMany(mappedBy = "schedule", fetch = FetchType.EAGER)
-    @Fetch(FetchMode.SELECT)
+    @OneToMany(mappedBy = "schedule", fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<GroupedDailySchedule> dailySchedule;
 
     @Column(name = "is_latest")
@@ -31,18 +30,18 @@ public class Schedule {
     public Schedule() {
     }
 
-    public Schedule(long id, ScheduleVersion scheduleVersion, List<GroupedDailySchedule> dailySchedule, boolean isLatest) {
+    public Schedule(Long id, ScheduleVersion scheduleVersion, List<GroupedDailySchedule> dailySchedule, boolean isLatest) {
         this.id = id;
         this.scheduleVersion = scheduleVersion;
         this.dailySchedule = dailySchedule;
         this.isLatest = isLatest;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

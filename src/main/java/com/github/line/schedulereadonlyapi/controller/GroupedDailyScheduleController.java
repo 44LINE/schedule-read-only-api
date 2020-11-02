@@ -20,12 +20,12 @@ public class GroupedDailyScheduleController {
         this.groupedDailyScheduleService = groupedDailyScheduleService;
     }
 
-    @GetMapping(value = "/schedules/{id}/grouped-daily-schedule")
+    @GetMapping(value = "/schedules/{id}/grouped-daily-schedules")
     public CollectionModel<EntityModel<GroupedDailySchedule>> all(@PathVariable Long id) {
         return groupedDailyScheduleService.all(id);
     }
 
-    @GetMapping(value = "/schedules/{scheduleId}/grouped-daily-schedule/{groupedDailyScheduleId}")
+    @GetMapping(value = "/schedules/{scheduleId}/grouped-daily-schedules/{groupedDailyScheduleId}")
     public EntityModel<GroupedDailySchedule> one(@PathVariable Long scheduleId, @PathVariable Long groupedDailyScheduleId) {
         return groupedDailyScheduleService.one(scheduleId, groupedDailyScheduleId);
     }

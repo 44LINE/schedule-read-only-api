@@ -20,12 +20,12 @@ public class ClassDetailsController {
         this.classDetailsService = classDetailsService;
     }
 
-    @GetMapping(value = "/schedule/{scheduleId}/grouped-daily-schedule/{groupedDailyScheduleId}/class-details")
+    @GetMapping(value = "/schedules/{scheduleId}/grouped-daily-schedules/{groupedDailyScheduleId}/class-details")
     public CollectionModel<EntityModel<ClassDetails>> all(@PathVariable Long scheduleId, @PathVariable Long groupedDailyScheduleId) {
         return classDetailsService.all(scheduleId, groupedDailyScheduleId);
     }
 
-    @GetMapping(value = "/schedule/{scheduleId}/grouped-daily-schedule/{groupedDailyScheduleId}/class-details/{classDetailsId}")
+    @GetMapping(value = "/schedules/{scheduleId}/grouped-daily-schedules/{groupedDailyScheduleId}/class-details/{classDetailsId}")
     public EntityModel<ClassDetails> one(@PathVariable Long scheduleId, @PathVariable Long groupedDailyScheduleId, @PathVariable Long classDetailsId) {
         return classDetailsService.one(scheduleId, groupedDailyScheduleId, classDetailsId);
     }

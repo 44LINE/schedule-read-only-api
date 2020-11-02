@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface ScheduleRepository extends ReadOnlyJpaRepository<Schedule> {
     @Query(value = "SELECT c1 FROM Schedule AS c1 WHERE c1.isLatest = true")
-    public Schedule getLatest();
+    Schedule getLatest();
 }

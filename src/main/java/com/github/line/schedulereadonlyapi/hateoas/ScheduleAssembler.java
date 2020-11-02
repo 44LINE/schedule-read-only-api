@@ -18,8 +18,7 @@ public class ScheduleAssembler implements RepresentationModelAssembler<Schedule,
     public EntityModel<Schedule> toModel(Schedule entity) {
         return EntityModel.of(entity,
                 linkTo(methodOn(ScheduleController.class).one(entity.getId())).withSelfRel(),
-                linkTo(methodOn(GroupedDailyScheduleController.class).all(entity.getId())).withRel("grouped-daily-schedules"),
-                linkTo(methodOn(ScheduleController.class).all()).withRel("schedules")
+                linkTo(methodOn(GroupedDailyScheduleController.class).all(entity.getId())).withRel("groupedDailyScheduleList")
         );
     }
 
@@ -28,11 +27,10 @@ public class ScheduleAssembler implements RepresentationModelAssembler<Schedule,
         List<EntityModel<Schedule>> listOfEntityModel = new ArrayList<>();
 
         for (Schedule entity: entities) {
-            listOfEntityModel.add(EntityModel.of(entity,
-                    linkTo(methodOn(ScheduleController.class).one(entity.getId())).withSelfRel()));
+            listOfEntityModel.add(toModel(entity));
         }
 
         return CollectionModel.of(listOfEntityModel,
-                linkTo(methodOn(ScheduleController.class).all()).withRel("class-details"));
+                linkTo(methodOn(ScheduleController.class).all()).withSelfRel());
     }
 }

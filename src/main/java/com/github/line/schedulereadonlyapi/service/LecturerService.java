@@ -24,6 +24,6 @@ public class LecturerService {
     }
 
     public EntityModel<Lecturer> one(Long lecturerId) {
-        return lecturerAssembler.toModel(lecturerRepository.getOne(lecturerId));
+        return lecturerAssembler.toModel(lecturerRepository.findById(lecturerId).get());
     }
 }
