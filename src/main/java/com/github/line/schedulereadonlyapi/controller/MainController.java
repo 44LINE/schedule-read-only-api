@@ -18,6 +18,7 @@ public class MainController {
                 linkTo(methodOn(ScheduleController.class).all()).withRel("schedules"),
                 linkTo(methodOn(LecturerController.class).all()).withRel("lecturers"),
                 linkTo(methodOn(ClassObjectController.class).all()).withRel("class-objects"),
+                linkTo(methodOn(GroupedDailyScheduleController.class).allLatest()).withRel("latest-grouped-daily-schedules"),
                 Link.of("https://44line.github.io/", "author")
         );
     }

@@ -31,4 +31,13 @@ public class GroupedDailyScheduleService {
         return groupedDailyScheduleAssembler.toCollectionModel(groupedDailyScheduleRepository
                 .getAllBySchedule_idAndGroupIdOrderByDateAsc(scheduleId, groupId));
     }
+
+    public CollectionModel<EntityModel<GroupedDailySchedule>> allLatest() {
+        return groupedDailyScheduleAssembler.toCollectionModel(groupedDailyScheduleRepository.getAllBySchedule_isLatestTrue());
+    }
+
+    public CollectionModel<EntityModel<GroupedDailySchedule>> allLatestByGroupId(Long groupId) {
+        return groupedDailyScheduleAssembler.toCollectionModel(groupedDailyScheduleRepository
+                .getAllByGroupIdAndSchedule_isLatestTrueOrderByDate(groupId));
+    }
 }
