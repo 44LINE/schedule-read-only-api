@@ -26,4 +26,9 @@ public class GroupedDailyScheduleService {
     public EntityModel<GroupedDailySchedule> one(Long scheduleId, Long groupedDailyScheduleId) {
         return groupedDailyScheduleAssembler.toModel(groupedDailyScheduleRepository.getBySchedule_IdAndId(scheduleId, groupedDailyScheduleId));
     }
+
+    public CollectionModel<EntityModel<GroupedDailySchedule>> allByGroupId(Long scheduleId, Long groupId) {
+        return groupedDailyScheduleAssembler.toCollectionModel(groupedDailyScheduleRepository
+                .getAllBySchedule_idAndGroupIdOrderByDateAsc(scheduleId, groupId));
+    }
 }

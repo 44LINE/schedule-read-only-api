@@ -7,4 +7,5 @@ import java.util.List;
 public interface GroupedDailyScheduleRepository extends ReadOnlyJpaRepository<GroupedDailySchedule> {
     GroupedDailySchedule getBySchedule_IdAndId(Long scheduleId, Long groupedDailyScheduleId);
     List<GroupedDailySchedule> getAllBySchedule_Id(Long scheduleId);
+    List<GroupedDailySchedule> getAllBySchedule_idAndGroupIdOrderByDateAsc(Long scheduleId, Long groupId);
 }

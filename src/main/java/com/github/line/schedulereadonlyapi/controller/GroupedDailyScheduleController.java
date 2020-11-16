@@ -29,4 +29,9 @@ public class GroupedDailyScheduleController {
     public EntityModel<GroupedDailySchedule> one(@PathVariable Long scheduleId, @PathVariable Long groupedDailyScheduleId) {
         return groupedDailyScheduleService.one(scheduleId, groupedDailyScheduleId);
     }
+
+    @GetMapping(value = "/schedules/{scheduleId}/grouped-daily-schedules/group-id/{groupId}")
+    public CollectionModel<EntityModel<GroupedDailySchedule>> all(@PathVariable Long scheduleId, @PathVariable Long groupId) {
+        return groupedDailyScheduleService.allByGroupId(scheduleId, groupId);
+    }
 }
