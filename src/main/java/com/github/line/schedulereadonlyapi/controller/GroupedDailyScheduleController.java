@@ -32,7 +32,7 @@ public class GroupedDailyScheduleController {
 
     @GetMapping(value = "/schedules/{scheduleId}/grouped-daily-schedules/group-id/{groupId}")
     public CollectionModel<EntityModel<GroupedDailySchedule>> allByGroupId(@PathVariable Long scheduleId, @PathVariable Long groupId) {
-        return groupedDailyScheduleService.allByGroupId(scheduleId, groupId);
+        return groupedDailyScheduleService.allByGroupId(scheduleId, groupId - 1);
     }
 
     @GetMapping(value = "/schedules/latest/grouped-daily-schedules")
@@ -42,6 +42,6 @@ public class GroupedDailyScheduleController {
 
     @GetMapping(value = "/schedules/latest/grouped-daily-schedules/group-id/{groupId}")
     public CollectionModel<EntityModel<GroupedDailySchedule>> allLatestByGroupId(@PathVariable Long groupId) {
-        return groupedDailyScheduleService.allLatestByGroupId(groupId);
+        return groupedDailyScheduleService.allLatestByGroupId(groupId - 1);
     }
 }
