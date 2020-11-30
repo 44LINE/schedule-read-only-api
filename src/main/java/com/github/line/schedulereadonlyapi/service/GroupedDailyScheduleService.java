@@ -1,20 +1,20 @@
 package com.github.line.schedulereadonlyapi.service;
 
 import com.github.line.schedulereadonlyapi.domain.GroupedDailySchedule;
-import com.github.line.schedulereadonlyapi.hateoas.GroupedDailyScheduleAssembler;
 import com.github.line.schedulereadonlyapi.repository.readonly.GroupedDailyScheduleRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.server.RepresentationModelAssembler;
+import org.springframework.stereotype.Service;
 
+@Service
 public class GroupedDailyScheduleService {
     private final GroupedDailyScheduleRepository groupedDailyScheduleRepository;
-    private final GroupedDailyScheduleAssembler groupedDailyScheduleAssembler;
+    private final RepresentationModelAssembler<GroupedDailySchedule, EntityModel<GroupedDailySchedule>> groupedDailyScheduleAssembler;
 
-    private GroupedDailyScheduleService() {
-        throw new AssertionError();
-    }
-
-    public GroupedDailyScheduleService(GroupedDailyScheduleRepository groupedDailyScheduleRepository, GroupedDailyScheduleAssembler groupedDailyScheduleAssembler) {
+    public GroupedDailyScheduleService(@Autowired GroupedDailyScheduleRepository groupedDailyScheduleRepository,
+                                       @Autowired RepresentationModelAssembler<GroupedDailySchedule, EntityModel<GroupedDailySchedule>> groupedDailyScheduleAssembler) {
         this.groupedDailyScheduleRepository = groupedDailyScheduleRepository;
         this.groupedDailyScheduleAssembler = groupedDailyScheduleAssembler;
     }

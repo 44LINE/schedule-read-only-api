@@ -1,20 +1,20 @@
 package com.github.line.schedulereadonlyapi.service;
 
 import com.github.line.schedulereadonlyapi.domain.Schedule;
-import com.github.line.schedulereadonlyapi.hateoas.ScheduleAssembler;
 import com.github.line.schedulereadonlyapi.repository.readonly.ScheduleRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.server.RepresentationModelAssembler;
+import org.springframework.stereotype.Service;
 
+@Service
 public class ScheduleService {
     private final ScheduleRepository scheduleRepository;
-    private final ScheduleAssembler scheduleAssembler;
+    private final RepresentationModelAssembler<Schedule, EntityModel<Schedule>> scheduleAssembler;
 
-    private ScheduleService() {
-        throw new AssertionError();
-    }
-
-    public ScheduleService(ScheduleRepository scheduleRepository, ScheduleAssembler scheduleAssembler) {
+    public ScheduleService(@Autowired ScheduleRepository scheduleRepository,
+                           @Autowired RepresentationModelAssembler<Schedule, EntityModel<Schedule>> scheduleAssembler) {
         this.scheduleRepository = scheduleRepository;
         this.scheduleAssembler = scheduleAssembler;
     }

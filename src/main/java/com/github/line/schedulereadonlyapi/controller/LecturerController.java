@@ -2,6 +2,7 @@ package com.github.line.schedulereadonlyapi.controller;
 
 import com.github.line.schedulereadonlyapi.domain.Lecturer;
 import com.github.line.schedulereadonlyapi.service.LecturerService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,11 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class LecturerController {
     private final LecturerService lecturerService;
 
-    private LecturerController() {
-        throw new AssertionError();
-    }
-
-    public LecturerController(LecturerService lecturerService) {
+    public LecturerController(@Autowired LecturerService lecturerService) {
         this.lecturerService = lecturerService;
     }
 

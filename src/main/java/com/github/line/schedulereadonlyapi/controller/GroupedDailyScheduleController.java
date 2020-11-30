@@ -2,6 +2,7 @@ package com.github.line.schedulereadonlyapi.controller;
 
 import com.github.line.schedulereadonlyapi.domain.GroupedDailySchedule;
 import com.github.line.schedulereadonlyapi.service.GroupedDailyScheduleService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,11 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class GroupedDailyScheduleController {
     private final GroupedDailyScheduleService groupedDailyScheduleService;
 
-    private GroupedDailyScheduleController() {
-        throw new AssertionError();
-    }
-
-    public GroupedDailyScheduleController(GroupedDailyScheduleService groupedDailyScheduleService) {
+    public GroupedDailyScheduleController(@Autowired GroupedDailyScheduleService groupedDailyScheduleService) {
         this.groupedDailyScheduleService = groupedDailyScheduleService;
     }
 

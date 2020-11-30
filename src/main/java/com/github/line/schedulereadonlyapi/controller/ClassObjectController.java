@@ -2,6 +2,7 @@ package com.github.line.schedulereadonlyapi.controller;
 
 import com.github.line.schedulereadonlyapi.domain.ClassObject;
 import com.github.line.schedulereadonlyapi.service.ClassObjectService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,11 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class ClassObjectController {
     private final ClassObjectService classObjectService;
 
-    private ClassObjectController() {
-        throw new AssertionError();
-    }
-
-    public ClassObjectController(ClassObjectService classObjectService) {
+    public ClassObjectController(@Autowired ClassObjectService classObjectService) {
         this.classObjectService = classObjectService;
     }
 

@@ -5,9 +5,11 @@ import com.github.line.schedulereadonlyapi.controller.ClassObjectController;
 import com.github.line.schedulereadonlyapi.controller.GroupedDailyScheduleController;
 import com.github.line.schedulereadonlyapi.controller.LecturerController;
 import com.github.line.schedulereadonlyapi.domain.ClassDetails;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.RepresentationModelAssembler;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +17,7 @@ import java.util.List;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
+@Component
 public class ClassDetailsAssembler implements RepresentationModelAssembler<ClassDetails, EntityModel<ClassDetails>> {
     @Override
     public EntityModel<ClassDetails> toModel(ClassDetails entity) {

@@ -38,7 +38,8 @@ class ClassObjectControllerTest {
     private ClassObjectService service;
 
     private static String BASE_PATH = "http://localhost";
-    private static String CLASS_OBJECTS_PATH = "/class-objects/";
+    private static String DEFAULT_PORT = ":8080";
+    private static String CLASS_OBJECTS_PATH = "/class-objects";
     private static final long ID = 1;
     private ClassObject classObject;
 
@@ -63,7 +64,7 @@ class ClassObjectControllerTest {
         given(service.one(ID))
                 .willReturn(assembler.toModel(classObject));
 
-        final ResultActions result = mockMvc.perform(get(BASE_PATH + CLASS_OBJECTS_PATH + ID));
+        final ResultActions result = mockMvc.perform(get(BASE_PATH + DEFAULT_PORT + CLASS_OBJECTS_PATH + "/" + ID));
         result.andExpect(status().isOk());
         verifyJson(result);
     }
@@ -73,7 +74,9 @@ class ClassObjectControllerTest {
                 .andExpect(jsonPath("id", is(classObject.getId().intValue())))
                 .andExpect(jsonPath("name", is(classObject.getName())))
                 .andExpect(jsonPath("shortName", is(classObject.getShortName())))
-                .andExpect(jsonPath("links[0].href", is(BASE_PATH + CLASS_OBJECTS_PATH + ID)))
+                .andExpect(jsonPath("links[0].href", is(BASE_PATH + CLASS_OBJECTS_PATH + "/" + ID)))
+                .andExpect(jsonPath("links[0].rel", is("self")))
+                .andExpect(jsonPath("links[1].href", is(BASE_PATH + CLASS_OBJECTS_PATH)))
                 .andExpect(jsonPath("links[1].rel", is("class-objects")));
     }
 }

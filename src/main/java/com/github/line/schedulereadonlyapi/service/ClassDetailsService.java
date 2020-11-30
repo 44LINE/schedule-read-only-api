@@ -1,20 +1,20 @@
 package com.github.line.schedulereadonlyapi.service;
 
 import com.github.line.schedulereadonlyapi.domain.ClassDetails;
-import com.github.line.schedulereadonlyapi.hateoas.ClassDetailsAssembler;
 import com.github.line.schedulereadonlyapi.repository.readonly.ClassDetailsRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.server.RepresentationModelAssembler;
+import org.springframework.stereotype.Service;
 
+@Service
 public class ClassDetailsService {
     private final ClassDetailsRepository classDetailsRepository;
-    private final ClassDetailsAssembler classDetailsAssembler;
+    private final RepresentationModelAssembler<ClassDetails, EntityModel<ClassDetails>> classDetailsAssembler;
 
-    private ClassDetailsService() {
-        throw new AssertionError();
-    }
-
-    public ClassDetailsService(ClassDetailsRepository classDetailsRepository, ClassDetailsAssembler classDetailsAssembler) {
+    public ClassDetailsService(@Autowired ClassDetailsRepository classDetailsRepository,
+                               @Autowired RepresentationModelAssembler<ClassDetails, EntityModel<ClassDetails>> classDetailsAssembler) {
         this.classDetailsRepository = classDetailsRepository;
         this.classDetailsAssembler = classDetailsAssembler;
     }

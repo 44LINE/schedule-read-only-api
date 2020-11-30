@@ -5,6 +5,7 @@ import com.github.line.schedulereadonlyapi.domain.ClassObject;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.RepresentationModelAssembler;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +13,7 @@ import java.util.List;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
+@Component
 public class ClassObjectAssembler implements RepresentationModelAssembler<ClassObject, EntityModel<ClassObject>> {
     @Override
     public EntityModel<ClassObject> toModel(ClassObject entity) {

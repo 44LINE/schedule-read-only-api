@@ -1,20 +1,20 @@
 package com.github.line.schedulereadonlyapi.service;
 
 import com.github.line.schedulereadonlyapi.domain.Lecturer;
-import com.github.line.schedulereadonlyapi.hateoas.LecturerAssembler;
 import com.github.line.schedulereadonlyapi.repository.readonly.LecturerRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.server.RepresentationModelAssembler;
+import org.springframework.stereotype.Service;
 
+@Service
 public class LecturerService {
     private final LecturerRepository lecturerRepository;
-    private final LecturerAssembler lecturerAssembler;
+    private final RepresentationModelAssembler<Lecturer, EntityModel<Lecturer>> lecturerAssembler;
 
-    private LecturerService() {
-        throw new AssertionError();
-    }
-
-    public LecturerService(LecturerRepository lecturerRepository, LecturerAssembler lecturerAssembler) {
+    public LecturerService(@Autowired LecturerRepository lecturerRepository,
+                           @Autowired RepresentationModelAssembler<Lecturer, EntityModel<Lecturer>> lecturerAssembler) {
         this.lecturerRepository = lecturerRepository;
         this.lecturerAssembler = lecturerAssembler;
     }
