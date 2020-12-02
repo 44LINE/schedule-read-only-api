@@ -1,6 +1,7 @@
 package com.github.line.schedulereadonlyapi.controller;
 
 import com.github.line.schedulereadonlyapi.domain.ClassObject;
+import com.github.line.schedulereadonlyapi.exception.ClassObjectNotFoundException;
 import com.github.line.schedulereadonlyapi.hateoas.ClassObjectAssembler;
 import com.github.line.schedulereadonlyapi.service.ClassObjectService;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,22 +17,23 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import java.util.Arrays;
+import java.util.Collections;
+
 import static org.hamcrest.core.Is.is;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-//@RunWith(SpringRunner.class)
-//@WebMvcTest
-@SpringBootTest
-@EnableAutoConfiguration
+@RunWith(SpringRunner.class)
+@WebMvcTest(ClassObjectController.class)
 class ClassObjectControllerTest {
 
-    //@Autowired
+    @Autowired
     private MockMvc mockMvc;
 
+    //@Autowired
     private ClassObjectAssembler assembler;
 
     @MockBean
@@ -45,9 +47,6 @@ class ClassObjectControllerTest {
 
     @BeforeEach
     public void setup() {
-        mockMvc = MockMvcBuilders
-                .standaloneSetup(new ClassObjectController(service))
-                .build();
         assembler = new ClassObjectAssembler();
         setUpClassObject();
     }
@@ -71,12 +70,37 @@ class ClassObjectControllerTest {
 
     private void verifyJson(final ResultActions action) throws Exception {
         action
-                .andExpect(jsonPath("id", is(classObject.getId().intValue())))
-                .andExpect(jsonPath("name", is(classObject.getName())))
-                .andExpect(jsonPath("shortName", is(classObject.getShortName())))
-                .andExpect(jsonPath("links[0].href", is(BASE_PATH + CLASS_OBJECTS_PATH + "/" + ID)))
-                .andExpect(jsonPath("links[0].rel", is("self")))
-                .andExpect(jsonPath("links[1].href", is(BASE_PATH + CLASS_OBJECTS_PATH)))
-                .andExpect(jsonPath("links[1].rel", is("class-objects")));
+                .andExpect(jsonPath("id", is(classObject.getId().intValue()) ))
+                .andExpect(jsonPath("name", is(classObject.getName()) ))
+                .andExpect(jsonPath("shortName", is(classObject.getShortName()) ))
+                .andExpect(jsonPath("_links.self.href", is(CLASS_OBJECTS_PATH + "/" + ID) ))
+                .andExpect(jsonPath("_links.class-objects.href", is(CLASS_OBJECTS_PATH)))
+                .andDo(print());
+    }
+
+    @Test
+    public void testAll() throws Exception {
+        given(service.all())
+                .willReturn(assembler.toCollectionModel(Collections.singleton(classObject)));
+        final ResultActions result = mockMvc.perform(get(BASE_PATH + DEFAULT_PORT + CLASS_OBJECTS_PATH));
+        result.andExpect(status().isOk());
+        result
+                .andExpect(jsonPath("_embedded.classObjectList[0].id", is(classObject.getId().intValue()) ))
+                .andExpect(jsonPath("_embedded.classObjectList[0].name", is(classObject.getName()) ))
+                .andExpect(jsonPath("_embedded.classObjectList[0].shortName", is(classObject.getShortName()) ))
+                .andExpect(jsonPath("_embedded.classObjectList[0]._links.self.href", is(CLASS_OBJECTS_PATH + "/" + classObject.getId().intValue()) ))
+                .andExpect(jsonPath("_links.self.href", is(CLASS_OBJECTS_PATH) ));
+    }
+
+    @Test
+    public void getClassObjectThatDoesNotExistReturnsError() throws Exception {
+
+        ClassObjectNotFoundException exception = new ClassObjectNotFoundException(ID);
+        given(service.one(ID)).willThrow(exception);
+        //when
+        final ResultActions result = mockMvc.perform(get(BASE_PATH + CLASS_OBJECTS_PATH + "/" + ID));
+        //then
+        result.andExpect(status().isNotFound())
+              .andExpect(jsonPath("detail", is(exception.getMessage()) ));
     }
 }

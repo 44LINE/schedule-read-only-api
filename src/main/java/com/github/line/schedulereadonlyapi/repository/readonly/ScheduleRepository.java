@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ScheduleRepository extends ReadOnlyJpaRepository<Schedule> {
-    @Query(value = "SELECT c1 FROM Schedule AS c1 WHERE c1.isLatest = true")
+    @Query("SELECT c1 FROM Schedule AS c1 WHERE c1.isLatest = true")
     Schedule getLatest();
 }
