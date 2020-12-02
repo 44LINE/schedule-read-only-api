@@ -20,24 +20,24 @@ public class GroupedDailyScheduleService {
     }
 
     public CollectionModel<EntityModel<GroupedDailySchedule>> all(Long scheduleId) {
-        return groupedDailyScheduleAssembler.toCollectionModel(groupedDailyScheduleRepository.getAllBySchedule_Id(scheduleId));
+        return groupedDailyScheduleAssembler.toCollectionModel(groupedDailyScheduleRepository.findByScheduleId(scheduleId));
     }
 
     public EntityModel<GroupedDailySchedule> one(Long scheduleId, Long groupedDailyScheduleId) {
-        return groupedDailyScheduleAssembler.toModel(groupedDailyScheduleRepository.getBySchedule_IdAndId(scheduleId, groupedDailyScheduleId));
+        return groupedDailyScheduleAssembler.toModel(groupedDailyScheduleRepository.getOne(groupedDailyScheduleId));
     }
 
     public CollectionModel<EntityModel<GroupedDailySchedule>> allByGroupId(Long scheduleId, Long groupId) {
         return groupedDailyScheduleAssembler.toCollectionModel(groupedDailyScheduleRepository
-                .getAllBySchedule_idAndGroupIdOrderByDateAsc(scheduleId, groupId));
+                .findByScheduleAndGroupChronologically(scheduleId, groupId));
     }
 
     public CollectionModel<EntityModel<GroupedDailySchedule>> allLatest() {
-        return groupedDailyScheduleAssembler.toCollectionModel(groupedDailyScheduleRepository.getAllBySchedule_isLatestTrue());
+        return groupedDailyScheduleAssembler.toCollectionModel(groupedDailyScheduleRepository.findByLatestSchedule());
     }
 
     public CollectionModel<EntityModel<GroupedDailySchedule>> allLatestByGroupId(Long groupId) {
         return groupedDailyScheduleAssembler.toCollectionModel(groupedDailyScheduleRepository
-                .getAllByGroupIdAndSchedule_isLatestTrueOrderByDate(groupId));
+                .findLatestByGroupChronologically(groupId));
     }
 }

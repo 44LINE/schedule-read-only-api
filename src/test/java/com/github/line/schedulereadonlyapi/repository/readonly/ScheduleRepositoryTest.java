@@ -19,7 +19,7 @@ class ScheduleRepositoryTest {
 
     @Test
     void testFindLatest() {
-        Schedule latest = repository.getLatest();
+        Schedule latest = repository.findLatest();
         assertThat(latest).isNotNull();
     }
 }

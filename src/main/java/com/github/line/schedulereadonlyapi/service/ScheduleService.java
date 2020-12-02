@@ -28,7 +28,7 @@ public class ScheduleService {
     }
 
     public EntityModel<Schedule> latest() {
-        return scheduleAssembler.toModel(scheduleRepository.getLatest());
+        return scheduleAssembler.toModel(scheduleRepository.findLatest());
     }
 
 }

@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
 class ScheduleVersionRepositoryTest {
@@ -15,8 +14,13 @@ class ScheduleVersionRepositoryTest {
     private ScheduleVersionRepository repository;
 
     @Test
+    void injectedComponentsAreNotNull() {
+        assertThat(repository).isNotNull();
+    }
+
+    @Test
     void testFindLatest() {
-        ScheduleVersion latest = repository.getLatest();
+        ScheduleVersion latest = repository.findLatest();
         assertThat(latest).isNotNull();
     }
 }
