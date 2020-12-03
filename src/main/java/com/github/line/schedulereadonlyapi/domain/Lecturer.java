@@ -1,76 +1,32 @@
 package com.github.line.schedulereadonlyapi.domain;
 
+import lombok.*;
+
 import javax.persistence.*;
 
 @Entity
-@Table(name = "lecturers", uniqueConstraints = @UniqueConstraint(columnNames = {"id", "name", "surname", "shortname"}))
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+@ToString
+@Table(name = "lecturers", uniqueConstraints = @UniqueConstraint(columnNames = {"id", "surname", "shortname"}))
 public class Lecturer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Long id;
+    private @NonNull Long id;
 
     @Column(name = "name")
-    private String name;
+    private @NonNull String name;
 
     @Column(name = "surname")
-    private String surname;
+    private @NonNull String surname;
 
     @Column(name = "shortname")
-    private String shortName;
+    private @NonNull String shortName;
 
     @Column(name = "email")
     private String email;
-
-    public Lecturer() {
-    }
-
-    public Lecturer(Long id, String name, String surname, String shortName, String email) {
-        this.id = id;
-        this.name = name;
-        this.surname = surname;
-        this.shortName = shortName;
-        this.email = email;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
-    public String getShortName() {
-        return shortName;
-    }
-
-    public void setShortName(String shortName) {
-        this.shortName = shortName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
 }

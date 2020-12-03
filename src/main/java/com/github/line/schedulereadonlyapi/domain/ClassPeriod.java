@@ -1,36 +1,20 @@
 package com.github.line.schedulereadonlyapi.domain;
 
 import com.github.line.schedulereadonlyapi.enums.DayTimePeriods;
+import lombok.*;
 
 import javax.persistence.Embeddable;
 import java.time.LocalTime;
 
 @Embeddable
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+@ToString
+@EqualsAndHashCode
 public class ClassPeriod {
 
-    private LocalTime startTime;
-    private LocalTime endTime;
-
-    public ClassPeriod() {}
-
-    public ClassPeriod(DayTimePeriods dayTimePeriod) {
-        this.startTime = dayTimePeriod.getStartTime();
-        this.endTime = dayTimePeriod.getEndTime();
-    }
-
-    public LocalTime getStartTime() {
-        return startTime;
-    }
-
-    public void setStartTime(LocalTime startTime) {
-        this.startTime = startTime;
-    }
-
-    public LocalTime getEndTime() {
-        return endTime;
-    }
-
-    public void setEndTime(LocalTime endTime) {
-        this.endTime = endTime;
-    }
+    private @NonNull LocalTime startTime;
+    private @NonNull LocalTime endTime;
 }
