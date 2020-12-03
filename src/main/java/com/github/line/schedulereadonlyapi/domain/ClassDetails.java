@@ -2,10 +2,18 @@ package com.github.line.schedulereadonlyapi.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.github.line.schedulereadonlyapi.enums.ClassType;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "class_details", uniqueConstraints = @UniqueConstraint(columnNames = {"id"}))
 public class ClassDetails {
 
@@ -35,65 +43,6 @@ public class ClassDetails {
     @JoinColumn(name = "grouped_daily_schedule_id", referencedColumnName = "id", nullable = false)
     @JsonIgnore
     private GroupedDailySchedule groupedDailySchedule;
-
-    public ClassDetails() {}
-
-    public ClassDetails(Long id, ClassObject classObject, Lecturer lecturer, ClassType type, ClassPeriod classPeriod, GroupedDailySchedule groupedDailySchedule) {
-        this.id = id;
-        this.classObject = classObject;
-        this.lecturer = lecturer;
-        this.type = type;
-        this.classPeriod = classPeriod;
-        this.groupedDailySchedule = groupedDailySchedule;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public ClassObject getClassObject() {
-        return classObject;
-    }
-
-    public void setClassObject(ClassObject classObject) {
-        this.classObject = classObject;
-    }
-
-    public Lecturer getLecturer() {
-        return lecturer;
-    }
-
-    public void setLecturer(Lecturer lecturer) {
-        this.lecturer = lecturer;
-    }
-
-    public ClassType getType() {
-        return type;
-    }
-
-    public void setType(ClassType type) {
-        this.type = type;
-    }
-
-    public ClassPeriod getClassPeriod() {
-        return classPeriod;
-    }
-
-    public void setClassPeriod(ClassPeriod classPeriod) {
-        this.classPeriod = classPeriod;
-    }
-
-    public GroupedDailySchedule getGroupedDailySchedule() {
-        return groupedDailySchedule;
-    }
-
-    public void setGroupedDailySchedule(GroupedDailySchedule groupedDailySchedule) {
-        this.groupedDailySchedule = groupedDailySchedule;
-    }
 
     @Override
     public String toString() {
