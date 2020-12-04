@@ -2,6 +2,7 @@ package com.github.line.schedulereadonlyapi.controller;
 
 import com.github.line.schedulereadonlyapi.domain.ScheduleVersion;
 import com.github.line.schedulereadonlyapi.service.ScheduleVersionService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
@@ -10,12 +11,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequiredArgsConstructor
 public class ScheduleVersionController {
     private final ScheduleVersionService service;
-
-    public ScheduleVersionController(@Autowired ScheduleVersionService service) {
-        this.service = service;
-    }
 
     @GetMapping(value = "/schedule-versions")
     public CollectionModel<EntityModel<ScheduleVersion>> all() {

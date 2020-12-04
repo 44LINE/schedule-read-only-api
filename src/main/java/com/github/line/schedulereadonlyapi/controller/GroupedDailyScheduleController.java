@@ -2,6 +2,7 @@ package com.github.line.schedulereadonlyapi.controller;
 
 import com.github.line.schedulereadonlyapi.domain.GroupedDailySchedule;
 import com.github.line.schedulereadonlyapi.service.GroupedDailyScheduleService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
@@ -10,15 +11,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequiredArgsConstructor
 public class GroupedDailyScheduleController {
     private final GroupedDailyScheduleService service;
 
-    public GroupedDailyScheduleController(@Autowired GroupedDailyScheduleService service) {
-        this.service = service;
-    }
-
-    @GetMapping(value = "/schedules/{scheduleId}/grouped-daily-schedules/{groupedDailyScheduleId}")
-    public EntityModel<GroupedDailySchedule> one(@PathVariable Long scheduleId, @PathVariable Long groupedDailyScheduleId) {
+    @GetMapping(value = "/grouped-daily-schedules/{groupedDailyScheduleId}")
+    public EntityModel<GroupedDailySchedule> one(@PathVariable Long groupedDailyScheduleId) {
         return service.one(groupedDailyScheduleId);
     }
 

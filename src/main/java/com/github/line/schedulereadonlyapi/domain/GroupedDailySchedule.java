@@ -24,7 +24,7 @@ public class GroupedDailySchedule {
     private @NonNull Long id;
 
     @Column(name = "group_id")
-    private @NonNull long groupId;
+    private @NonNull Long groupId;
 
     @Column(name = "date")
     private @NonNull LocalDate date;

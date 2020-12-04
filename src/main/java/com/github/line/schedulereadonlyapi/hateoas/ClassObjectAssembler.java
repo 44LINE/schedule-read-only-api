@@ -18,9 +18,7 @@ public class ClassObjectAssembler implements RepresentationModelAssembler<ClassO
     @Override
     public EntityModel<ClassObject> toModel(ClassObject entity) {
         return EntityModel.of(entity,
-                    linkTo(methodOn(ClassObjectController.class).one(entity.getId())).withSelfRel(),
-                    linkTo(methodOn(ClassObjectController.class).all()).withRel("class-objects")
-        );
+                    linkTo(methodOn(ClassObjectController.class).one(entity.getId())).withSelfRel());
     }
 
     @Override

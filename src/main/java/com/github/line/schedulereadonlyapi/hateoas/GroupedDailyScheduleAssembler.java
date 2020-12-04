@@ -19,8 +19,8 @@ public class GroupedDailyScheduleAssembler implements RepresentationModelAssembl
     @Override
     public EntityModel<GroupedDailySchedule> toModel(GroupedDailySchedule entity) {
         return EntityModel.of(entity,
-                linkTo(methodOn(GroupedDailyScheduleController.class).one(entity.getSchedule().getId(), entity.getId())).withSelfRel(),
-                linkTo(methodOn(ClassDetailsController.class).all(entity.getSchedule().getId(), entity.getId())).withRel("classDetailsList"));
+                linkTo(methodOn(GroupedDailyScheduleController.class).one(entity.getId())).withSelfRel(),
+                linkTo(methodOn(ClassDetailsController.class).allByGroupedDailyScheduleId(entity.getId())).withRel("classDetailsList"));
     }
 
     @Override
