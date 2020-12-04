@@ -11,19 +11,19 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class LecturerController {
-    private final LecturerService lecturerService;
+    private final LecturerService service;
 
-    public LecturerController(@Autowired LecturerService lecturerService) {
-        this.lecturerService = lecturerService;
+    public LecturerController(@Autowired LecturerService service) {
+        this.service = service;
     }
 
     @GetMapping(value = "/lecturers")
     public CollectionModel<EntityModel<Lecturer>> all() {
-        return lecturerService.all();
+        return service.all();
     }
 
     @GetMapping(value = "/lecturers/{id}")
     public EntityModel<Lecturer> one(@PathVariable Long id) {
-        return lecturerService.one(id);
+        return service.one(id);
     }
 }

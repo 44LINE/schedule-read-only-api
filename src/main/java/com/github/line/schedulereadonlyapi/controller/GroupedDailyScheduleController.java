@@ -11,34 +11,34 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class GroupedDailyScheduleController {
-    private final GroupedDailyScheduleService groupedDailyScheduleService;
+    private final GroupedDailyScheduleService service;
 
-    public GroupedDailyScheduleController(@Autowired GroupedDailyScheduleService groupedDailyScheduleService) {
-        this.groupedDailyScheduleService = groupedDailyScheduleService;
-    }
-
-    @GetMapping(value = "/schedules/{id}/grouped-daily-schedules")
-    public CollectionModel<EntityModel<GroupedDailySchedule>> all(@PathVariable Long id) {
-        return groupedDailyScheduleService.all(id);
+    public GroupedDailyScheduleController(@Autowired GroupedDailyScheduleService service) {
+        this.service = service;
     }
 
     @GetMapping(value = "/schedules/{scheduleId}/grouped-daily-schedules/{groupedDailyScheduleId}")
     public EntityModel<GroupedDailySchedule> one(@PathVariable Long scheduleId, @PathVariable Long groupedDailyScheduleId) {
-        return groupedDailyScheduleService.one(scheduleId, groupedDailyScheduleId);
+        return service.one(groupedDailyScheduleId);
     }
 
-    @GetMapping(value = "/schedules/{scheduleId}/grouped-daily-schedules/group-id/{groupId}")
-    public CollectionModel<EntityModel<GroupedDailySchedule>> allByGroupId(@PathVariable Long scheduleId, @PathVariable Long groupId) {
-        return groupedDailyScheduleService.allByGroupId(scheduleId, groupId - 1);
+    @GetMapping(value = "/schedules/{id}/grouped-daily-schedules")
+    public CollectionModel<EntityModel<GroupedDailySchedule>> all(@PathVariable Long id) {
+        return service.allByScheduleId(id);
     }
 
     @GetMapping(value = "/schedules/latest/grouped-daily-schedules")
     public CollectionModel<EntityModel<GroupedDailySchedule>> allLatest() {
-        return groupedDailyScheduleService.allLatest();
+        return service.allLatest();
+    }
+
+    @GetMapping(value = "/schedules/{scheduleId}/grouped-daily-schedules/group-id/{groupId}")
+    public CollectionModel<EntityModel<GroupedDailySchedule>> allByGroupId(@PathVariable Long scheduleId, @PathVariable Long groupId) {
+        return service.allByScheduleIdAndGroupIdSorted(scheduleId, groupId - 1);
     }
 
     @GetMapping(value = "/schedules/latest/grouped-daily-schedules/group-id/{groupId}")
     public CollectionModel<EntityModel<GroupedDailySchedule>> allLatestByGroupId(@PathVariable Long groupId) {
-        return groupedDailyScheduleService.allLatestByGroupId(groupId - 1);
+        return service.allLatestByGroupIdSorted(groupId - 1);
     }
 }

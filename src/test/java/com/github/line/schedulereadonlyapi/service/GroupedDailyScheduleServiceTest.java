@@ -36,19 +36,19 @@ class GroupedDailyScheduleServiceTest {
 
     @Test
     void testOne() {
-        service.one(ID, ID);
+        service.one(ID);
         verify(repository, times(1)).getOne(any());
     }
 
     @Test
     void testAll() {
-        service.all(ID);
+        service.allByScheduleId(ID);
         verify(repository, times(1)).findByScheduleId(any());
     }
 
     @Test
     void testAllLatestByGroupId() {
-        service.allLatestByGroupId(ID);
+        service.allLatestByGroupIdSorted(ID);
         verify(repository, times(1)).findLatestByGroupChronologically(any());
     }
 
@@ -60,7 +60,7 @@ class GroupedDailyScheduleServiceTest {
 
     @Test
     void testAllByGroupId() {
-        service.allByGroupId(ID, ID);
+        service.allByScheduleIdAndGroupIdSorted(ID, ID);
         verify(repository, times(1)).findByScheduleAndGroupChronologically(any(), any());
     }
 }

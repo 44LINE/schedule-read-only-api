@@ -10,23 +10,21 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ClassDetailsService {
-    private final ClassDetailsRepository classDetailsRepository;
-    private final RepresentationModelAssembler<ClassDetails, EntityModel<ClassDetails>> classDetailsAssembler;
+    private final ClassDetailsRepository repository;
+    private final RepresentationModelAssembler<ClassDetails, EntityModel<ClassDetails>> assembler;
 
-    public ClassDetailsService(@Autowired ClassDetailsRepository classDetailsRepository,
-                               @Autowired RepresentationModelAssembler<ClassDetails, EntityModel<ClassDetails>> classDetailsAssembler) {
-        this.classDetailsRepository = classDetailsRepository;
-        this.classDetailsAssembler = classDetailsAssembler;
+    public ClassDetailsService(@Autowired ClassDetailsRepository repository,
+                               @Autowired RepresentationModelAssembler<ClassDetails, EntityModel<ClassDetails>> assembler) {
+        this.repository = repository;
+        this.assembler = assembler;
     }
 
-    public EntityModel<ClassDetails> one(Long scheduleId, Long groupedDailyScheduleId, Long classDetailsId) {
-        return classDetailsAssembler.toModel(
-                classDetailsRepository.getOne(classDetailsId));
+    public EntityModel<ClassDetails> one(Long classDetailsId) {
+        return assembler.toModel(repository.getOne(classDetailsId));
     }
 
-    public CollectionModel<EntityModel<ClassDetails>> all(Long scheduleId, Long groupedDailyScheduleId) {
-        return classDetailsAssembler.toCollectionModel(
-                classDetailsRepository.findByGroupedDailySchedule(groupedDailyScheduleId));
+    public CollectionModel<EntityModel<ClassDetails>> allByGroupedDailyScheduleId(Long groupedDailyScheduleId) {
+        return assembler.toCollectionModel(repository.findByGroupedDailySchedule(groupedDailyScheduleId));
     }
 }
 

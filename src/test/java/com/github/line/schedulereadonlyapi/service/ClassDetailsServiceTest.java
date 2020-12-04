@@ -34,13 +34,13 @@ class ClassDetailsServiceTest {
 
     @Test
     void testOne() {
-        service.one(ID, ID, ID);
+        service.one(ID);
         verify(repository, times(1)).getOne(any());
     }
 
     @Test
     void testAll() {
-        service.all(ID, ID);
+        service.allByGroupedDailyScheduleId(ID);
         verify(repository, times(1)).findByGroupedDailySchedule(any());
     }
 }

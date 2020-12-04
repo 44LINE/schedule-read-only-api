@@ -10,20 +10,20 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ClassObjectService {
-    private final ClassObjectRepository classObjectRepository;
-    private final RepresentationModelAssembler<ClassObject, EntityModel<ClassObject>> classObjectAssembler;
+    private final ClassObjectRepository repository;
+    private final RepresentationModelAssembler<ClassObject, EntityModel<ClassObject>> assembler;
 
-    public ClassObjectService(@Autowired ClassObjectRepository classObjectRepository,
-                              @Autowired RepresentationModelAssembler<ClassObject, EntityModel<ClassObject>> classObjectAssembler) {
-        this.classObjectRepository = classObjectRepository;
-        this.classObjectAssembler = classObjectAssembler;
-    }
-
-    public CollectionModel<EntityModel<ClassObject>> all() {
-        return classObjectAssembler.toCollectionModel(classObjectRepository.findAll());
+    public ClassObjectService(@Autowired ClassObjectRepository repository,
+                              @Autowired RepresentationModelAssembler<ClassObject, EntityModel<ClassObject>> assembler) {
+        this.repository = repository;
+        this.assembler = assembler;
     }
 
     public EntityModel<ClassObject> one(Long classObjectId) {
-        return classObjectAssembler.toModel(classObjectRepository.getOne(classObjectId));
+        return assembler.toModel(repository.getOne(classObjectId));
+    }
+
+    public CollectionModel<EntityModel<ClassObject>> all() {
+        return assembler.toCollectionModel(repository.findAll());
     }
 }

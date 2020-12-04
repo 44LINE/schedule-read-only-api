@@ -10,20 +10,20 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class LecturerService {
-    private final LecturerRepository lecturerRepository;
-    private final RepresentationModelAssembler<Lecturer, EntityModel<Lecturer>> lecturerAssembler;
+    private final LecturerRepository repository;
+    private final RepresentationModelAssembler<Lecturer, EntityModel<Lecturer>> assembler;
 
-    public LecturerService(@Autowired LecturerRepository lecturerRepository,
-                           @Autowired RepresentationModelAssembler<Lecturer, EntityModel<Lecturer>> lecturerAssembler) {
-        this.lecturerRepository = lecturerRepository;
-        this.lecturerAssembler = lecturerAssembler;
-    }
-
-    public CollectionModel<EntityModel<Lecturer>> all() {
-        return lecturerAssembler.toCollectionModel(lecturerRepository.findAll());
+    public LecturerService(@Autowired LecturerRepository repository,
+                           @Autowired RepresentationModelAssembler<Lecturer, EntityModel<Lecturer>> assembler) {
+        this.repository = repository;
+        this.assembler = assembler;
     }
 
     public EntityModel<Lecturer> one(Long lecturerId) {
-        return lecturerAssembler.toModel(lecturerRepository.findById(lecturerId).get());
+        return assembler.toModel(repository.getOne(lecturerId));
+    }
+
+    public CollectionModel<EntityModel<Lecturer>> all() {
+        return assembler.toCollectionModel(repository.findAll());
     }
 }

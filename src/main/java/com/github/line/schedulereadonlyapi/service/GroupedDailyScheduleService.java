@@ -10,34 +10,32 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class GroupedDailyScheduleService {
-    private final GroupedDailyScheduleRepository groupedDailyScheduleRepository;
-    private final RepresentationModelAssembler<GroupedDailySchedule, EntityModel<GroupedDailySchedule>> groupedDailyScheduleAssembler;
+    private final GroupedDailyScheduleRepository repository;
+    private final RepresentationModelAssembler<GroupedDailySchedule, EntityModel<GroupedDailySchedule>> assembler;
 
-    public GroupedDailyScheduleService(@Autowired GroupedDailyScheduleRepository groupedDailyScheduleRepository,
-                                       @Autowired RepresentationModelAssembler<GroupedDailySchedule, EntityModel<GroupedDailySchedule>> groupedDailyScheduleAssembler) {
-        this.groupedDailyScheduleRepository = groupedDailyScheduleRepository;
-        this.groupedDailyScheduleAssembler = groupedDailyScheduleAssembler;
+    public GroupedDailyScheduleService(@Autowired GroupedDailyScheduleRepository repository,
+                                       @Autowired RepresentationModelAssembler<GroupedDailySchedule, EntityModel<GroupedDailySchedule>> assembler) {
+        this.repository = repository;
+        this.assembler = assembler;
     }
 
-    public CollectionModel<EntityModel<GroupedDailySchedule>> all(Long scheduleId) {
-        return groupedDailyScheduleAssembler.toCollectionModel(groupedDailyScheduleRepository.findByScheduleId(scheduleId));
+    public EntityModel<GroupedDailySchedule> one(Long groupedDailyScheduleId) {
+        return assembler.toModel(repository.getOne(groupedDailyScheduleId));
     }
 
-    public EntityModel<GroupedDailySchedule> one(Long scheduleId, Long groupedDailyScheduleId) {
-        return groupedDailyScheduleAssembler.toModel(groupedDailyScheduleRepository.getOne(groupedDailyScheduleId));
-    }
-
-    public CollectionModel<EntityModel<GroupedDailySchedule>> allByGroupId(Long scheduleId, Long groupId) {
-        return groupedDailyScheduleAssembler.toCollectionModel(groupedDailyScheduleRepository
-                .findByScheduleAndGroupChronologically(scheduleId, groupId));
+    public CollectionModel<EntityModel<GroupedDailySchedule>> allByScheduleId(Long scheduleId) {
+        return assembler.toCollectionModel(repository.findByScheduleId(scheduleId));
     }
 
     public CollectionModel<EntityModel<GroupedDailySchedule>> allLatest() {
-        return groupedDailyScheduleAssembler.toCollectionModel(groupedDailyScheduleRepository.findByLatestSchedule());
+        return assembler.toCollectionModel(repository.findByLatestSchedule());
     }
 
-    public CollectionModel<EntityModel<GroupedDailySchedule>> allLatestByGroupId(Long groupId) {
-        return groupedDailyScheduleAssembler.toCollectionModel(groupedDailyScheduleRepository
-                .findLatestByGroupChronologically(groupId));
+    public CollectionModel<EntityModel<GroupedDailySchedule>> allByScheduleIdAndGroupIdSorted(Long scheduleId, Long groupId) {
+        return assembler.toCollectionModel(repository.findByScheduleAndGroupChronologically(scheduleId, groupId));
+    }
+
+    public CollectionModel<EntityModel<GroupedDailySchedule>> allLatestByGroupIdSorted(Long groupId) {
+        return assembler.toCollectionModel(repository.findLatestByGroupChronologically(groupId));
     }
 }

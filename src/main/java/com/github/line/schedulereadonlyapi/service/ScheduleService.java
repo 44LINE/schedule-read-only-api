@@ -10,25 +10,25 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ScheduleService {
-    private final ScheduleRepository scheduleRepository;
-    private final RepresentationModelAssembler<Schedule, EntityModel<Schedule>> scheduleAssembler;
+    private final ScheduleRepository repository;
+    private final RepresentationModelAssembler<Schedule, EntityModel<Schedule>> assembler;
 
-    public ScheduleService(@Autowired ScheduleRepository scheduleRepository,
-                           @Autowired RepresentationModelAssembler<Schedule, EntityModel<Schedule>> scheduleAssembler) {
-        this.scheduleRepository = scheduleRepository;
-        this.scheduleAssembler = scheduleAssembler;
-    }
-
-    public CollectionModel<EntityModel<Schedule>> all() {
-        return scheduleAssembler.toCollectionModel(scheduleRepository.findAll());
+    public ScheduleService(@Autowired ScheduleRepository repository,
+                           @Autowired RepresentationModelAssembler<Schedule, EntityModel<Schedule>> assembler) {
+        this.repository = repository;
+        this.assembler = assembler;
     }
 
     public EntityModel<Schedule> one(Long scheduleId) {
-        return scheduleAssembler.toModel(scheduleRepository.findById(scheduleId).get());
+        return assembler.toModel(repository.getOne(scheduleId));
+    }
+
+    public CollectionModel<EntityModel<Schedule>> all() {
+        return assembler.toCollectionModel(repository.findAll());
     }
 
     public EntityModel<Schedule> latest() {
-        return scheduleAssembler.toModel(scheduleRepository.findLatest());
+        return assembler.toModel(repository.findLatest());
     }
 
 }

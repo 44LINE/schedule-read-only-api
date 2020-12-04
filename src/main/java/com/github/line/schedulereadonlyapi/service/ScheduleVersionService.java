@@ -10,24 +10,24 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ScheduleVersionService {
-    private final ScheduleVersionRepository scheduleVersionRepository;
-    private final RepresentationModelAssembler<ScheduleVersion, EntityModel<ScheduleVersion>> scheduleVersionAssembler;
+    private final ScheduleVersionRepository repository;
+    private final RepresentationModelAssembler<ScheduleVersion, EntityModel<ScheduleVersion>> assembler;
 
-    public ScheduleVersionService(@Autowired ScheduleVersionRepository scheduleVersionRepository,
-                                  @Autowired RepresentationModelAssembler<ScheduleVersion, EntityModel<ScheduleVersion>> scheduleVersionAssembler) {
-        this.scheduleVersionRepository = scheduleVersionRepository;
-        this.scheduleVersionAssembler = scheduleVersionAssembler;
-    }
-
-    public CollectionModel<EntityModel<ScheduleVersion>> all() {
-        return scheduleVersionAssembler.toCollectionModel(scheduleVersionRepository.findAll());
-    }
-
-    public EntityModel<ScheduleVersion> latest() {
-        return scheduleVersionAssembler.toModel(scheduleVersionRepository.findLatest());
+    public ScheduleVersionService(@Autowired ScheduleVersionRepository repository,
+                                  @Autowired RepresentationModelAssembler<ScheduleVersion, EntityModel<ScheduleVersion>> assembler) {
+        this.repository = repository;
+        this.assembler = assembler;
     }
 
     public EntityModel<ScheduleVersion> one(Long scheduleVersionId) {
-        return scheduleVersionAssembler.toModel(scheduleVersionRepository.findById(scheduleVersionId).get());
+        return assembler.toModel(repository.getOne(scheduleVersionId));
+    }
+
+    public CollectionModel<EntityModel<ScheduleVersion>> all() {
+        return assembler.toCollectionModel(repository.findAll());
+    }
+
+    public EntityModel<ScheduleVersion> latest() {
+        return assembler.toModel(repository.findLatest());
     }
 }

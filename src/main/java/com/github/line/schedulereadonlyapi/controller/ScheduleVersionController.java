@@ -11,24 +11,24 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class ScheduleVersionController {
-    private final ScheduleVersionService scheduleVersionService;
+    private final ScheduleVersionService service;
 
-    public ScheduleVersionController(@Autowired ScheduleVersionService scheduleVersionService) {
-        this.scheduleVersionService = scheduleVersionService;
+    public ScheduleVersionController(@Autowired ScheduleVersionService service) {
+        this.service = service;
     }
 
     @GetMapping(value = "/schedule-versions")
     public CollectionModel<EntityModel<ScheduleVersion>> all() {
-        return scheduleVersionService.all();
+        return service.all();
     }
 
     @GetMapping(value = "/schedule-versions/{id}")
     public EntityModel<ScheduleVersion> one(@PathVariable Long id) {
-        return scheduleVersionService.one(id);
+        return service.one(id);
     }
 
     @GetMapping(value = "/schedule-versions/latest")
     public EntityModel<ScheduleVersion> latest() {
-        return scheduleVersionService.latest();
+        return service.latest();
     }
 }

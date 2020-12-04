@@ -11,20 +11,20 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class ClassDetailsController {
-    private final ClassDetailsService classDetailsService;
+    private final ClassDetailsService service;
 
-    public ClassDetailsController(@Autowired ClassDetailsService classDetailsService) {
-        this.classDetailsService = classDetailsService;
+    public ClassDetailsController(@Autowired ClassDetailsService service) {
+        this.service = service;
     }
 
     @GetMapping(value = "/schedules/{scheduleId}/grouped-daily-schedules/{groupedDailyScheduleId}/class-details")
     public CollectionModel<EntityModel<ClassDetails>> all(@PathVariable Long scheduleId, @PathVariable Long groupedDailyScheduleId) {
-        return classDetailsService.all(scheduleId, groupedDailyScheduleId);
+        return service.allByGroupedDailyScheduleId(groupedDailyScheduleId);
     }
 
     @GetMapping(value = "/schedules/{scheduleId}/grouped-daily-schedules/{groupedDailyScheduleId}/class-details/{classDetailsId}")
     public EntityModel<ClassDetails> one(@PathVariable Long scheduleId, @PathVariable Long groupedDailyScheduleId, @PathVariable Long classDetailsId) {
-        return classDetailsService.one(scheduleId, groupedDailyScheduleId, classDetailsId);
+        return service.one(classDetailsId);
     }
 
 }
