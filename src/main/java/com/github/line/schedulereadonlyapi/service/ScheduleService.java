@@ -1,34 +1,29 @@
 package com.github.line.schedulereadonlyapi.service;
 
-import com.github.line.schedulereadonlyapi.domain.Schedule;
-import com.github.line.schedulereadonlyapi.hateoas.ScheduleAssembler;
+import com.github.line.schedulereadonlyapi.domain.api.Schedule;
 import com.github.line.schedulereadonlyapi.repository.readonly.ScheduleRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.server.RepresentationModelAssembler;
+import org.springframework.stereotype.Service;
 
+@Service
+@RequiredArgsConstructor
 public class ScheduleService {
-    private final ScheduleRepository scheduleRepository;
-    private final ScheduleAssembler scheduleAssembler;
+    private final ScheduleRepository repository;
+    private final RepresentationModelAssembler<Schedule, EntityModel<Schedule>> assembler;
 
-    private ScheduleService() {
-        throw new AssertionError();
-    }
-
-    public ScheduleService(ScheduleRepository scheduleRepository, ScheduleAssembler scheduleAssembler) {
-        this.scheduleRepository = scheduleRepository;
-        this.scheduleAssembler = scheduleAssembler;
+    public EntityModel<Schedule> one(Long scheduleId) {
+        return assembler.toModel(repository.getOne(scheduleId));
     }
 
     public CollectionModel<EntityModel<Schedule>> all() {
-        return scheduleAssembler.toCollectionModel(scheduleRepository.findAll());
-    }
-
-    public EntityModel<Schedule> one(Long scheduleId) {
-        return scheduleAssembler.toModel(scheduleRepository.findById(scheduleId).get());
+        return assembler.toCollectionModel(repository.findAll());
     }
 
     public EntityModel<Schedule> latest() {
-        return scheduleAssembler.toModel(scheduleRepository.getLatest());
+        return assembler.toModel(repository.findLatest());
     }
 
 }

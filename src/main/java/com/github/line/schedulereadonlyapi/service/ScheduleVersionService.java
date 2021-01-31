@@ -1,33 +1,28 @@
 package com.github.line.schedulereadonlyapi.service;
 
-import com.github.line.schedulereadonlyapi.domain.ScheduleVersion;
-import com.github.line.schedulereadonlyapi.hateoas.ScheduleVersionAssembler;
+import com.github.line.schedulereadonlyapi.domain.api.ScheduleVersion;
 import com.github.line.schedulereadonlyapi.repository.readonly.ScheduleVersionRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.server.RepresentationModelAssembler;
+import org.springframework.stereotype.Service;
 
+@Service
+@RequiredArgsConstructor
 public class ScheduleVersionService {
-    private final ScheduleVersionRepository scheduleVersionRepository;
-    private final ScheduleVersionAssembler scheduleVersionAssembler;
+    private final ScheduleVersionRepository repository;
+    private final RepresentationModelAssembler<ScheduleVersion, EntityModel<ScheduleVersion>> assembler;
 
-    private ScheduleVersionService() {
-        throw new AssertionError();
-    }
-
-    public ScheduleVersionService(ScheduleVersionRepository scheduleVersionRepository, ScheduleVersionAssembler scheduleVersionAssembler) {
-        this.scheduleVersionRepository = scheduleVersionRepository;
-        this.scheduleVersionAssembler = scheduleVersionAssembler;
+    public EntityModel<ScheduleVersion> one(Long scheduleVersionId) {
+        return assembler.toModel(repository.getOne(scheduleVersionId));
     }
 
     public CollectionModel<EntityModel<ScheduleVersion>> all() {
-        return scheduleVersionAssembler.toCollectionModel(scheduleVersionRepository.findAll());
+        return assembler.toCollectionModel(repository.findAll());
     }
 
     public EntityModel<ScheduleVersion> latest() {
-        return scheduleVersionAssembler.toModel(scheduleVersionRepository.getLatest());
-    }
-
-    public EntityModel<ScheduleVersion> one(Long scheduleVersionId) {
-        return scheduleVersionAssembler.toModel(scheduleVersionRepository.findById(scheduleVersionId).get());
+        return assembler.toModel(repository.findLatest());
     }
 }

@@ -1,12 +1,11 @@
 package com.github.line.schedulereadonlyapi.hateoas;
 
-import com.github.line.schedulereadonlyapi.controller.ClassObjectController;
 import com.github.line.schedulereadonlyapi.controller.LecturerController;
-import com.github.line.schedulereadonlyapi.domain.ClassObject;
-import com.github.line.schedulereadonlyapi.domain.Lecturer;
+import com.github.line.schedulereadonlyapi.domain.api.Lecturer;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.RepresentationModelAssembler;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +13,7 @@ import java.util.List;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
+@Component
 public class LecturerAssembler implements RepresentationModelAssembler<Lecturer, EntityModel<Lecturer>> {
     @Override
     public EntityModel<Lecturer> toModel(Lecturer entity) {
