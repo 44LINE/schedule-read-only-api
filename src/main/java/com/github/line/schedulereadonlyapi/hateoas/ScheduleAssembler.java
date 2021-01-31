@@ -2,7 +2,7 @@ package com.github.line.schedulereadonlyapi.hateoas;
 
 import com.github.line.schedulereadonlyapi.controller.GroupedDailyScheduleController;
 import com.github.line.schedulereadonlyapi.controller.ScheduleController;
-import com.github.line.schedulereadonlyapi.domain.Schedule;
+import com.github.line.schedulereadonlyapi.domain.api.Schedule;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.RepresentationModelAssembler;

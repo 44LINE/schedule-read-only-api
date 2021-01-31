@@ -1,9 +1,8 @@
 package com.github.line.schedulereadonlyapi.service;
 
-import com.github.line.schedulereadonlyapi.domain.ScheduleVersion;
+import com.github.line.schedulereadonlyapi.domain.api.ScheduleVersion;
 import com.github.line.schedulereadonlyapi.repository.readonly.ScheduleVersionRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.RepresentationModelAssembler;

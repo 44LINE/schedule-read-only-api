@@ -1,13 +1,10 @@
-package com.github.line.schedulereadonlyapi.domain;
+package com.github.line.schedulereadonlyapi.domain.api;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.Collections;
 import java.util.List;
 
 @Entity
@@ -21,13 +18,13 @@ public class GroupedDailySchedule {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private @NonNull Long id;
+    private Long id;
 
     @Column(name = "group_id")
-    private @NonNull Long groupId;
+    private Long groupId;
 
     @Column(name = "date")
-    private @NonNull LocalDate date;
+    private LocalDate date;
 
     @OneToMany(mappedBy = "groupedDailySchedule", fetch = FetchType.LAZY)
     @JsonIgnore
@@ -36,7 +33,7 @@ public class GroupedDailySchedule {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "schedule_id", referencedColumnName = "id", nullable = false)
     @JsonIgnore
-    private @NonNull Schedule schedule;
+    private Schedule schedule;
 
     @Override
     public String toString() {

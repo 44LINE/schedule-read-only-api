@@ -1,4 +1,4 @@
-package com.github.line.schedulereadonlyapi.domain;
+package com.github.line.schedulereadonlyapi.domain.api;
 
 import lombok.*;
 
@@ -16,6 +16,6 @@ import java.time.format.DateTimeFormatter;
 public class ClassPeriod {
     public static final  DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("hh:mm:ss");
 
-    private @NonNull LocalTime startTime;
-    private @NonNull LocalTime endTime;
+    private LocalTime startTime;
+    private LocalTime endTime;
 }

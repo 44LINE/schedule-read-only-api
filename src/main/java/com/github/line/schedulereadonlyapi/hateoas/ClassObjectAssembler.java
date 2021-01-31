@@ -1,7 +1,7 @@
 package com.github.line.schedulereadonlyapi.hateoas;
 
 import com.github.line.schedulereadonlyapi.controller.ClassObjectController;
-import com.github.line.schedulereadonlyapi.domain.ClassObject;
+import com.github.line.schedulereadonlyapi.domain.api.ClassObject;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.RepresentationModelAssembler;

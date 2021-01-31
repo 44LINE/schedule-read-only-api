@@ -1,6 +1,6 @@
 package com.github.line.schedulereadonlyapi.repository.readonly;
 
-import com.github.line.schedulereadonlyapi.domain.Schedule;
+import com.github.line.schedulereadonlyapi.domain.api.Schedule;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;

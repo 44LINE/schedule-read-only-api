@@ -1,4 +1,4 @@
-package com.github.line.schedulereadonlyapi.domain;
+package com.github.line.schedulereadonlyapi.domain.api;
 
 import lombok.*;
 
@@ -16,16 +16,16 @@ public class Lecturer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private @NonNull Long id;
+    private Long id;
 
     @Column(name = "name")
-    private @NonNull String name;
+    private String name;
 
     @Column(name = "surname")
-    private @NonNull String surname;
+    private String surname;
 
     @Column(name = "shortname")
-    private @NonNull String shortName;
+    private String shortName;
 
     @Column(name = "email")
     private String email;

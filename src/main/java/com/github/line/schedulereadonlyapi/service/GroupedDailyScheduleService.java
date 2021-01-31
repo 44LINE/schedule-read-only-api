@@ -1,6 +1,6 @@
 package com.github.line.schedulereadonlyapi.service;
 
-import com.github.line.schedulereadonlyapi.domain.GroupedDailySchedule;
+import com.github.line.schedulereadonlyapi.domain.api.GroupedDailySchedule;
 import com.github.line.schedulereadonlyapi.repository.readonly.GroupedDailyScheduleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.hateoas.CollectionModel;

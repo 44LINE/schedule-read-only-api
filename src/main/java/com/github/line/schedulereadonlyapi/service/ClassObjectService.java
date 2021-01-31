@@ -1,6 +1,6 @@
 package com.github.line.schedulereadonlyapi.service;
 
-import com.github.line.schedulereadonlyapi.domain.ClassObject;
+import com.github.line.schedulereadonlyapi.domain.api.ClassObject;
 import com.github.line.schedulereadonlyapi.repository.readonly.ClassObjectRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.hateoas.CollectionModel;

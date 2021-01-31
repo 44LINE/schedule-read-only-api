@@ -1,17 +1,18 @@
 package com.github.line.schedulereadonlyapi.controller;
 
-import com.github.line.schedulereadonlyapi.domain.GroupedDailySchedule;
+import com.github.line.schedulereadonlyapi.domain.api.GroupedDailySchedule;
 import com.github.line.schedulereadonlyapi.service.GroupedDailyScheduleService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/api")
 public class GroupedDailyScheduleController {
     private final GroupedDailyScheduleService service;
 

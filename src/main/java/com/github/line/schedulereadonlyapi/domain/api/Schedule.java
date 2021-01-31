@@ -1,10 +1,9 @@
-package com.github.line.schedulereadonlyapi.domain;
+package com.github.line.schedulereadonlyapi.domain.api;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.Collections;
 import java.util.List;
 
 @Entity
@@ -18,19 +17,19 @@ public class Schedule {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private @NonNull Long id;
+    private Long id;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "version_id", referencedColumnName = "id", nullable = false)
     @JsonIgnore
-    private @NonNull ScheduleVersion scheduleVersion;
+    private ScheduleVersion scheduleVersion;
 
     @OneToMany(mappedBy = "schedule", fetch = FetchType.LAZY)
     @JsonIgnore
-    private @NonNull List<GroupedDailySchedule> dailySchedule;
+    private List<GroupedDailySchedule> dailySchedule;
 
     @Column(name = "is_latest")
-    private @NonNull boolean isLatest;
+    private boolean isLatest;
 
     @Override
     public String toString() {

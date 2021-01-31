@@ -1,6 +1,7 @@
-package com.github.line.schedulereadonlyapi.domain;
+package com.github.line.schedulereadonlyapi.domain.api;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.github.line.schedulereadonlyapi.enums.ClassType;
 import lombok.*;
 

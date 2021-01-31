@@ -2,10 +2,8 @@ package com.github.line.schedulereadonlyapi.hateoas;
 
 import com.github.line.schedulereadonlyapi.controller.ClassDetailsController;
 import com.github.line.schedulereadonlyapi.controller.ClassObjectController;
-import com.github.line.schedulereadonlyapi.controller.GroupedDailyScheduleController;
 import com.github.line.schedulereadonlyapi.controller.LecturerController;
-import com.github.line.schedulereadonlyapi.domain.ClassDetails;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.github.line.schedulereadonlyapi.domain.api.ClassDetails;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.RepresentationModelAssembler;

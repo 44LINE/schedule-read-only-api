@@ -1,6 +1,6 @@
 package com.github.line.schedulereadonlyapi.repository.readonly;
 
-import com.github.line.schedulereadonlyapi.domain.ScheduleVersion;
+import com.github.line.schedulereadonlyapi.domain.api.ScheduleVersion;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
